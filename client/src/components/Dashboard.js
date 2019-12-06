@@ -1,6 +1,10 @@
 import React from 'react'
 import { useButtonToggle } from '../hooks/useButtonToggle'
 
+//components
+import Favorites from './Favorites'
+import Players from './Players'
+
 export default function Dashboard(props) {
   const [buttons, pushButtons] = useButtonToggle({ faves: false, players: false })
   return (
@@ -13,7 +17,9 @@ export default function Dashboard(props) {
         </div>
         <div className="dashboardCont__rightDiv">
           <button name="players" onClick={ev => pushButtons(ev.target.name)}>See All Players</button>
-
+          {
+            buttons.players && props.players.length && <Players players={props.players} />
+          }
         </div>
       </div>
     </div>

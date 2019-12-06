@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useModal } from '../hooks/useModal'
 
 export default function Favorites(props) {
@@ -10,12 +10,17 @@ export default function Favorites(props) {
   let modalDisplay = modal ? 'display-block modal' : 'display-none modal'
 
   const toggleModal = ev => {
+    if (!modal) {
+      setPlayerOfInterest(ev.target.id)
+    } else if (modal) {
+      setPlayerOfInterest(-1)
+    }
     setModal(!modal)
   }
-  const loadModal = ev => {
-    setPlayerOfInterest(ev.target.id)
-    setModal(!modal)
-  }
+  // const loadModal = ev => {
+  //   setPlayerOfInterest(ev.target.id)
+  //   setModal(!modal)
+  // }
   const handleDescription = ev => {
     setDescription(ev.target.value)
   }
@@ -24,13 +29,17 @@ export default function Favorites(props) {
     props.describeFavorite(description, playerOfInterest)
   }
 
+  useEffect(() => {
+    setDescription('')
+  }, [modal])
+
   return (
     <div>
 
       <div className={modalDisplay}>
         <div className="modal-main">
           <form onSubmit={handleSubmit}>
-            <input 
+            <textarea 
               placeholder="Description"  
               onChange={handleDescription}
               value={description}
@@ -53,7 +62,7 @@ export default function Favorites(props) {
             {
               favorite.description && <p>{favorite.description}</p>
             }
-            <button id={index} onClick={loadModal}>Edit Description</button>
+            <button id={index} onClick={toggleModal}>Edit Description</button>
             <button onClick={() => props.removeFavorite(index)}>Remove Favorite</button>
           </div>
         ))

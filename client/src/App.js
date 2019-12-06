@@ -1,26 +1,49 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Dashboard from './components/Dashboard'
+import Axios from 'axios'
+import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      players: [],
+      appMounted: false
+    }
+  }
+
+  componentDidMount() {
+    this.setState({appMounted: true})
+  }
+
+  componentWillUnmount() {
+    this.setState({appMounted: false})
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.appMounted !== this.state.appMounted && this.state.appMounted) {
+      Axios.get('http://localhost:5000/api/players')
+        .then( res => {
+          this.setState({ players: res.data })
+        })
+        .catch( err => {
+          console.log(err)
+        })
+    }
+  }
+
+  render (){
+    return (
+      <div className="App">
+        {
+          this.state.players && <Dashboard players={this.state.players}/>
+        }
+        
+      </div>
+    );
+
+  }
+
 }
 
 export default App;

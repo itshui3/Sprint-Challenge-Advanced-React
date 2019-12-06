@@ -8,7 +8,7 @@ export default function Players(props) {
         props.players && props.players.map((player, index) => (
           <div key={index}>
             <p>{player.name}</p>
-            <button>Add to Favorites!</button>
+            <button onClick={() => props.addFavorite(player)}>Add to Favorites!</button>
           </div>
           
         ))

@@ -11,7 +11,7 @@ export const useFavoritism = initialFavorites => {
     }
   }
   const removeFavorite = favoriteIndex => {
-    setFavorites(favorites.slice(0, favoriteIndex).concat(favorites.slice(index + 1)))
+    setFavorites(favorites.slice(0, favoriteIndex).concat(favorites.slice(favoriteIndex + 1)))
   }
 
   return [favorites, setNewFavorite, removeFavorite]

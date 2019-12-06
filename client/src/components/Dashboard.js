@@ -9,7 +9,7 @@ import Players from './Players'
 
 export default function Dashboard(props) {
   const [buttons, pushButtons] = useButtonToggle({ faves: false, players: false })
-  const [favorites, addFavorite, removeFavorite] = useFavoritism([])
+  const [favorites, addFavorite, removeFavorite, describeFavorite] = useFavoritism([])
 
   return (
     <div className="dashboardCont">
@@ -18,7 +18,7 @@ export default function Dashboard(props) {
         <div className="dashboardCont__leftDiv">
           <button name="faves" onClick={ev => pushButtons(ev.target.name)}>See Favorited Players</button>
           {
-            buttons.faves && favorites && <Favorites favorites={favorites} removeFavorite={removeFavorite} />
+            buttons.faves && favorites && <Favorites favorites={favorites} removeFavorite={removeFavorite} describeFavorite={describeFavorite} />
           }
         </div>
         <div className="dashboardCont__rightDiv">

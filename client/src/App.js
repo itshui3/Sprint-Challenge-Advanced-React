@@ -1,7 +1,7 @@
 import React from 'react';
 import Dashboard from './components/Dashboard'
 import Axios from 'axios'
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   constructor() {

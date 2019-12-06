@@ -1,0 +1,12 @@
+.dashboardCont {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin: 100px;
+  }
+  .dashboardCont__playersOverall {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
